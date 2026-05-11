@@ -15,9 +15,7 @@
 - 保存卦例
 - 手机端与电脑端自适应
 
-## 在线访问
 
-https://flaaaaking.github.io/sixyao/
 
 ## 使用说明
 
