@@ -3,8 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#12201c">
+<meta name="theme-color" content="#12201c">
   <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>观爻 · 六爻排盘与解析</title>
   <style>
     :root{
@@ -71,7 +74,7 @@
       border-radius:999px;padding:8px 12px;font-size:12px
     }
     .chip.active{background:var(--jade);border-color:var(--jade);color:white}
-    .method-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px}
+    .method-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;margin-bottom:14px;background:#383838}
     .method{
       border:1px solid var(--line);background:#fffdf8;border-radius:12px;padding:10px 5px;
       color:var(--ink-2);font-size:12px;font-weight:750
@@ -93,10 +96,10 @@
     }
     .coin:after{content:"";position:absolute;width:15px;height:15px;border:2px solid #765118;background:#e3c97d}
     .coin span{position:relative;z-index:1}
-    .coin.toss{animation:toss .7s ease both}
+    .coin.toss{animation:toss .62s linear infinite}
     @keyframes toss{0%{transform:rotateY(0) translateY(0)}45%{transform:rotateY(720deg) translateY(-28px)}100%{transform:rotateY(1440deg) translateY(0)}}
     .progress-row{display:flex;gap:6px;justify-content:center;margin:8px 0 13px}
-    .step{width:25px;height:6px;background:#d7d5cc;border-radius:9px}.step.done{background:var(--gold)}
+    .step{width:25px;height:6px;background:#555;border-radius:9px}.step.done{background:var(--gold)}.step.lit{background:#fff;box-shadow:0 0 0 1px var(--primary)}
     .status{font-size:12px;color:var(--muted);min-height:20px}
     .primary{
       width:100%;border:0;background:linear-gradient(135deg,var(--jade-2),var(--jade));color:white;
@@ -145,6 +148,8 @@
     .line.moving i{background:var(--red)}
     .line-mark{font-size:11px;color:var(--muted)}
     .line-mark strong{color:var(--red)}
+    .yao-badges{display:flex;gap:4px;justify-content:flex-end;flex-wrap:wrap}.yao-badge{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:18px;padding:0 5px;border:1px solid #555;color:#aaa;font-size:9px;font-weight:700}.yao-badge.move{border-color:var(--primary);background:var(--primary);color:#fff}.yao-badge.shi{border-color:#e7e2d8;color:#e7e2d8}.yao-badge.ying{border-color:#777;color:#bbb}
+    .hex-meta{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 16px}.hex-meta span{border-left:2px solid #555;background:#181818;padding:5px 8px;font-size:10px;color:#8f8f8f;letter-spacing:.08em}.hex-meta .hot{border-color:var(--primary);color:#fff}
     .summary-strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
     .metric{padding:16px 20px;border-right:1px solid var(--line)}
     .metric:last-child{border:0}.metric span{display:block;font-size:11px;color:var(--muted);margin-bottom:4px}.metric b{font-size:14px}
@@ -178,13 +183,31 @@
     .calendar-note{padding:10px 20px;border-bottom:1px solid var(--line);color:var(--muted);font-size:11px;line-height:1.6;background:rgba(255,255,255,.25)}
     .toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#15211d;color:white;border-radius:12px;padding:11px 16px;font-size:12px;transition:.25s;z-index:99}
     .toast.show{opacity:1;transform:translate(-50%,0)}
+    /* WorkBuddy 设计稿视觉基准：思源宋体标题、思源黑体正文、近黑画布与朱砂红 */
+    :root{--ink:#fff;--ink-2:#ece9e4;--paper:#202020;--paper-2:#262626;--jade:#da291c;--jade-2:#b01e0a;--gold:#da291c;--gold-2:#ece9e4;--red:#da291c;--muted:#8f8f8f;--line:#383838;--shadow:none;--radius:0}
+    body{background:#181818;color:#9a9a9a;font-family:"MiSans","Noto Sans SC","HarmonyOS Sans SC","PingFang SC","Microsoft YaHei",sans-serif;font-size:15px;line-height:1.75;font-variant-numeric:tabular-nums}
+    .app{max-width:1160px}.topbar{background:#181818;border:0;border-bottom:1px solid #2a2a2a;border-radius:0;padding:15px 0}.topbar:after{display:none}
+    .brand h1,h2,.result-title,.hex-name,.empty h3{font-family:"LXGW WenKai","霞鹜文楷","STKaiti","KaiTi",serif;font-weight:500}
+    .brand h1{letter-spacing:.18em}.result-title{letter-spacing:.05em}.hex-name{letter-spacing:.12em}
+    button,input,textarea,select,table,.metric,.calendar-note,.yao-badge{font-family:"MiSans","Noto Sans SC","HarmonyOS Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+    .seal{width:28px;height:28px;border:0;border-radius:0;background:#da291c;color:#fff;font-size:16px}.brand h1{font-size:19px;letter-spacing:.3em}.brand p{color:#6f6f6f}
+    .icon-btn,.result-tools button{border-radius:0}.workspace{grid-template-columns:430px minmax(0,1fr);gap:24px;margin-top:48px}
+    .panel{background:#202020;border:1px solid #383838;border-radius:0}.control{padding:32px}.result{border-left:3px solid #da291c}
+    .eyebrow{color:#6f6f6f;letter-spacing:.34em}.lead,.counter,.hint,.status{color:#6f6f6f}
+    textarea,input,select{background:#141313;border-color:#383838;color:#fff;border-radius:0}.chip,.method,.secondary{background:#141313;border-color:#383838;color:#9a9a9a;border-radius:0}
+    .chip.active,.method.active{background:#1c1c1c;color:#fff;border-color:#da291c}.primary{background:linear-gradient(180deg,#a00c01,#da291c);border-radius:0;box-shadow:none}
+    .coin-stage,.insight,.process-item,.history-item,.table-wrap,.disclaimer{border-radius:0;background:#141313;border-color:#383838}.coin{border-radius:50%}
+    .result-head{background:#181818;border-bottom:1px solid #383838}.hex-card,.metric,.tab-panel{background:#202020}.hero-grid,.summary-strip,.tabs{border-color:#383838;background:#383838}
+    .line i{background:#e7e2d8}.tab.active{color:#da291c;border-color:#da291c}.calendar-note{background:#181818;border-color:#383838}.focus{border-radius:0;background:#202020}
+    table{background:#141313}th{background:#262626;color:#8f8f8f}th,td{border-color:#383838}.empty{background:#202020}
+    .compact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.compact-grid.three{grid-template-columns:repeat(3,1fr)}
     @media(max-width:1000px){
-      .app{padding:12px}.workspace{grid-template-columns:1fr}.control{position:static;max-height:none}.result,.empty{min-height:560px}
+      .app{padding:12px}.workspace{grid-template-columns:1fr}.control{position:static;max-height:none}.result,.empty{min-height:560px}.method-tabs{grid-template-columns:repeat(3,1fr)}
     }
     @media(max-width:650px){
       .app{padding:0}.topbar{border-radius:0;padding:14px 15px}.brand p{display:none}.seal{width:42px;height:42px}
       .top-actions .hide-mobile{display:none}.workspace{margin-top:0;gap:0}.panel{border-radius:0;border-left:0;border-right:0;box-shadow:none}
-      .control{padding:22px 16px}.result-head{padding:22px 17px;display:block}.result-tools{margin-top:15px}.hero-grid{grid-template-columns:1fr}
+      .control{padding:22px 16px}.result-head{padding:22px 17px;display:block}.hero-grid{grid-template-columns:1fr}
       .hex-card{padding:22px 18px}.summary-strip{grid-template-columns:1fr 1fr}.metric:nth-child(2){border-right:0}.metric:nth-child(-n+2){border-bottom:1px solid var(--line)}
       .tab-panel{padding:20px 16px 28px}.insight-grid{grid-template-columns:1fr}.manual-grid{grid-template-columns:1fr}.result-title{font-size:27px}
     }
@@ -242,8 +265,10 @@
         <div class="field-head"><span class="label">起卦方式</span></div>
         <div class="method-tabs">
           <button class="method active" data-method="coin">铜钱起卦</button>
+          <button class="method" data-method="time">时间起卦</button>
           <button class="method" data-method="manual">手动录入</button>
           <button class="method" data-method="number">数字起卦</button>
+          <button class="method" data-method="yarrow">蓍草演算</button>
         </div>
 
         <section class="method-panel active" id="method-coin">
@@ -258,7 +283,17 @@
             <div class="status" id="coinStatus">尚未投掷</div>
           </div>
           <button class="primary" id="tossBtn" style="margin-top:10px">投掷第 1 爻</button>
-          <div class="button-row"><button class="secondary" id="undoBtn">撤销一爻</button><button class="secondary reset-btn">清空</button></div>
+          <div class="button-row"><button class="secondary" id="undoBtn">撤销 / 重摇</button><button class="secondary reset-btn">全部清空</button></div>
+        </section>
+
+        <section class="method-panel" id="method-time">
+          <div class="compact-grid three">
+            <input id="lunarMonth" type="number" min="1" max="12" inputmode="numeric" placeholder="农历月">
+            <input id="lunarDay" type="number" min="1" max="30" inputmode="numeric" placeholder="农历日">
+            <select id="timeBranch" aria-label="时辰"><option value="1">子时</option><option value="2">丑时</option><option value="3">寅时</option><option value="4">卯时</option><option value="5">辰时</option><option value="6">巳时</option><option value="7">午时</option><option value="8">未时</option><option value="9">申时</option><option value="10">酉时</option><option value="11">戌时</option><option value="12">亥时</option></select>
+          </div>
+          <button class="primary" id="timeBuild" style="margin-top:10px">按时间起卦</button>
+          <p class="hint">年支由起卦时间自动确定；农历月、日需手动输入，避免把公历月份误作农历。</p>
         </section>
 
         <section class="method-panel" id="method-manual">
@@ -274,7 +309,13 @@
             <input id="num3" type="number" inputmode="numeric" placeholder="数字三">
           </div>
           <button class="primary" id="numberBuild">以数起卦</button>
-          <p class="hint">前两数定上下卦，三数合参定动爻；适合已有三个自然数字时使用。</p>
+          <p class="hint">三数法：A 定上卦、B 定下卦、C 定动爻；余 0 分别按坤卦、上爻处理。</p>
+        </section>
+
+        <section class="method-panel" id="method-yarrow">
+          <div class="coin-stage"><div class="status">模拟“大衍五十，其用四十九”。每爻执行三变，共十八变成卦。</div><div class="progress-row" id="yarrowProgress"></div><div class="status" id="yarrowStatus">尚未演算</div></div>
+          <button class="primary" id="yarrowBtn" style="margin-top:10px">演算第 1 爻</button>
+          <div class="button-row"><button class="secondary" id="yarrowUndo">撤销一爻</button><button class="secondary" id="yarrowReset">清空</button></div>
         </section>
       </div>
     </aside>
@@ -291,31 +332,25 @@
       <div class="result-content" id="resultContent">
         <div class="result-head">
           <div><div class="eyebrow">Interpretation</div><div class="result-title" id="resultTitle">—</div><div class="result-sub" id="resultQuestion">—</div></div>
-          <div class="result-tools"><button id="copyBtn">复制摘要</button><button id="printBtn">打印 / PDF</button></div>
         </div>
         <div class="hero-grid">
           <article class="hex-card">
             <div class="hex-kicker"><span>本卦 · 当前态势</span><span id="originNumber">—</span></div>
             <div class="hex-name" id="originName">—</div>
+            <div class="hex-meta" id="originMeta"></div>
             <div class="hexagram" id="originHex"></div>
           </article>
           <article class="hex-card">
             <div class="hex-kicker"><span>变卦 · 后续走向</span><span id="changedNumber">—</span></div>
             <div class="hex-name" id="changedName">—</div>
+            <div class="hex-meta" id="changedMeta"></div>
             <div class="hexagram" id="changedHex"></div>
           </article>
-        </div>
-        <div class="summary-strip">
-          <div class="metric"><span>动爻</span><b id="movingMetric">—</b></div>
-          <div class="metric"><span>世应</span><b id="trigramMetric">—</b></div>
-          <div class="metric"><span>日辰</span><b id="balanceMetric">—</b></div>
-          <div class="metric"><span>起卦时间</span><b id="timeMetric">—</b></div>
         </div>
         <div class="calendar-note" id="calendarNote">—</div>
         <nav class="tabs">
           <button class="tab active" data-tab="overview">核心解读</button>
           <button class="tab" data-tab="detail">完整排盘</button>
-          <button class="tab" data-tab="process">推演过程</button>
           <button class="tab" data-tab="history">历史卦例</button>
         </nav>
         <section class="tab-panel active" id="tab-overview">
@@ -326,10 +361,9 @@
               <article class="insight"><span class="tag">风险提醒</span><h3>先辨边界</h3><p id="riskText">—</p></article>
             </div>
           </div>
-          <div class="disclaimer">本工具依据传统卦象结构提供文化研究与自我反思视角，不替代医疗、法律、投资等专业意见，也不应作为重大决定的唯一依据。</div>
+          <div class="disclaimer">精度说明：起卦、六十四卦、八宫世应、纳甲、六亲、六神、旬空与地支生克冲合均按内置规则计算；离线版月建采用节气日期近似边界，未接入权威天文历书，因此临界时刻请以专业万年历复核。本工具仅用于传统文化研究与自我反思，不替代医疗、法律、投资等专业意见。</div>
         </section>
-        <section class="tab-panel" id="tab-detail"><div class="table-wrap"><table><thead><tr><th>爻位</th><th>六神</th><th>六亲</th><th>纳甲</th><th>本爻</th><th>动静</th><th>变爻</th><th>世应</th><th>结构提示</th></tr></thead><tbody id="detailBody"></tbody></table></div></section>
-        <section class="tab-panel" id="tab-process"><div class="process" id="processList"></div></section>
+        <section class="tab-panel" id="tab-detail"><div class="table-wrap"><table><thead><tr><th>爻位</th><th>六神</th><th>六亲</th><th>纳甲</th><th>本爻</th><th>动静</th><th>变爻</th><th>世应</th><th>旺衰与关系</th><th>结构提示</th></tr></thead><tbody id="detailBody"></tbody></table></div></section>
         <section class="tab-panel history-panel" id="tab-history"><div class="history-list" id="historyList"></div></section>
       </div>
     </section>
@@ -386,9 +420,14 @@
   };
   const STEMS=["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"],BRANCHES=["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
   const GODS=["青龙","朱雀","勾陈","螣蛇","白虎","玄武"];
-  const PALACE_MASKS=[[0,0,0,0,0,0],[1,0,0,0,0,0],[1,1,0,0,0,0],[1,1,1,0,0,0],[1,1,1,1,0,0],[1,1,1,1,1,0],[1,1,1,0,1,0],[0,0,0,0,1,0]];
+  const PALACES={
+    乾:["乾","姤","遁","否","观","剥","晋","大有"],兑:["兑","困","萃","咸","蹇","谦","小过","归妹"],
+    离:["离","旅","鼎","未济","蒙","涣","讼","同人"],震:["震","豫","解","恒","升","井","大过","随"],
+    巽:["巽","小畜","家人","益","无妄","噬嗑","颐","蛊"],坎:["坎","节","屯","既济","革","丰","明夷","师"],
+    艮:["艮","贲","大畜","损","睽","履","中孚","渐"],坤:["坤","复","临","泰","大壮","夬","需","比"]
+  };
   const SHI_POS=[6,1,2,3,4,5,4,3],PALACE_TYPES=["本宫","一世","二世","三世","四世","五世","游魂","归魂"];
-  const state = { lines:[], records:[], topic:"general", method:"coin", current:null };
+  const state = { lines:[], records:[], pendingCoin:null, coinBusy:false, yarrowLines:[], topic:"general", method:"coin", current:null };
 
   function nowLocal(){
     const d=new Date(Date.now()-new Date().getTimezoneOffset()*60000);
@@ -408,16 +447,10 @@
     return {name,number:KING_WEN.indexOf(name)+1,lower:TRIGRAMS[lower],upper:TRIGRAMS[upper]};
   }
   function palaceInfo(lines){
-    const bits=lines.map(v=>isYang(v)?1:0);
-    for(const palace of Object.keys(NAJIA)){
-      const base=ORDER.find(k=>TRIGRAMS[k].name===palace).split("").map(Number);
-      const pure=[...base,...base];
-      for(let type=0;type<PALACE_MASKS.length;type++){
-        if(pure.every((v,i)=>(v^PALACE_MASKS[type][i])===bits[i])){
-          const shi=SHI_POS[type],ying=shi>3?shi-3:shi+3;
-          return {palace,element:FIVE[palace],type:PALACE_TYPES[type],shi,ying};
-        }
-      }
+    const name=hexInfo(lines).name;
+    for(const [palace,names] of Object.entries(PALACES)){
+      const type=names.indexOf(name);
+      if(type>=0){const shi=SHI_POS[type],ying=shi>3?shi-3:shi+3;return {palace,element:FIVE[palace],type:PALACE_TYPES[type],shi,ying}}
     }
     return {palace:"—",element:"—",type:"—",shi:1,ying:4};
   }
@@ -441,7 +474,32 @@
     const idx=((julianDay(date.getFullYear(),date.getMonth()+1,date.getDate())+49)%60+60)%60;
     const stem=STEMS[idx%10],branch=BRANCHES[idx%12],voids=[["戌","亥"],["申","酉"],["午","未"],["辰","巳"],["寅","卯"],["子","丑"]][Math.floor(idx/10)];
     const starts={甲:0,乙:0,丙:1,丁:1,戊:2,己:3,庚:4,辛:4,壬:5,癸:5},start=starts[stem];
-    return {idx,stem,branch,text:stem+branch,voids,gods:Array.from({length:6},(_,i)=>GODS[(start+i)%6])};
+    return {idx,stem,branch,text:stem+branch,voids,gods:Array.from({length:6},(_,i)=>GODS[(start+i)%6]),month:solarMonthBranch(date)};
+  }
+  function solarMonthBranch(date){
+    const md=(date.getMonth()+1)*100+date.getDate();
+    if(md>=204&&md<306)return "寅";if(md>=306&&md<405)return "卯";if(md>=405&&md<506)return "辰";if(md>=506&&md<606)return "巳";if(md>=606&&md<707)return "午";if(md>=707&&md<808)return "未";if(md>=808&&md<908)return "申";if(md>=908&&md<1008)return "酉";if(md>=1008&&md<1107)return "戌";if(md>=1107&&md<1207)return "亥";if(md>=1207||md<106)return "子";return "丑";
+  }
+  function branchElement(b){return ({申:"金",酉:"金",寅:"木",卯:"木",子:"水",亥:"水",巳:"火",午:"火",辰:"土",戌:"土",丑:"土",未:"土"})[b]}
+  function isClash(a,b){return ["子午","丑未","寅申","卯酉","辰戌","巳亥"].some(x=>x.includes(a)&&x.includes(b)&&a!==b)}
+  function isCombine(a,b){return ["子丑","寅亥","卯戌","辰酉","巳申","午未"].some(x=>x.includes(a)&&x.includes(b)&&a!==b)}
+  function strengthFor(branch,element,moving,changedBranch,calendar){
+    const notes=[],monthEl=branchElement(calendar.month),dayEl=branchElement(calendar.branch);
+    if(branch===calendar.month)notes.push("临月建");else if(isClash(branch,calendar.month))notes.push("月破");else if(relation(element,monthEl)==="父母")notes.push("得月生");else if(relation(element,monthEl)==="官鬼")notes.push("月克");
+    if(branch===calendar.branch)notes.push("临日辰");else if(isCombine(branch,calendar.branch))notes.push("日合");else if(isClash(branch,calendar.branch))notes.push(moving?"日冲动爻":"暗动");else if(relation(element,dayEl)==="父母")notes.push("得日生");else if(relation(element,dayEl)==="官鬼")notes.push("日克");
+    if(calendar.voids.includes(branch))notes.push("旬空");
+    if(moving&&changedBranch){const changedEl=branchElement(changedBranch);if(relation(element,changedEl)==="父母")notes.push("回头生");if(relation(element,changedEl)==="官鬼")notes.push("回头克")}
+    return notes.length?notes.join("、"):"平";
+  }
+  function bodyInfo(lines,palace,najia){
+    const shiBranch=najia[palace.shi-1].slice(-2,-1),pairs=["子午","丑未","寅申","卯酉","辰戌","巳亥"],shiBody=pairs.findIndex(x=>x.includes(shiBranch))+1;
+    const start=isYang(lines[palace.shi-1])?0:6,target=BRANCHES[(start+palace.shi-1)%12],monthBody=najia.findIndex(x=>x.includes(target))+1;
+    return {shiBody,monthTarget:target,monthBody};
+  }
+  function periodHint(usefulLines,najia,calendar){
+    if(!usefulLines.length)return "用神未显，传统上需结合伏神与后续月日再观察";
+    const hints=[];for(const i of usefulLines){const branch=najia[i].slice(-2,-1);if(calendar.voids.includes(branch))hints.push(`${branch}爻旬空，关注填实或冲空之日`);else if(isClash(branch,calendar.month))hints.push(`${branch}爻月破，关注逢合或下一月令`);else hints.push(`关注临${branch}、合${branch}或相关动爻变支之日`)}
+    return [...new Set(hints)].join("；");
   }
   function secureCoin(){ const a=new Uint32Array(1); crypto.getRandomValues(a); return a[0]%2?3:2 }
   function toast(msg){ const el=$("#toast"); el.textContent=msg;el.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove("show"),1800) }
@@ -460,8 +518,10 @@
     $("#undoBtn").addEventListener("click",undo);
     $("#manualBuild").addEventListener("click",manualBuild);
     $("#numberBuild").addEventListener("click",numberBuild);
-    $("#copyBtn").addEventListener("click",copySummary);
-    $("#printBtn").addEventListener("click",()=>window.print());
+    $("#timeBuild").addEventListener("click",timeBuild);
+    $("#yarrowBtn").addEventListener("click",yarrowStep);
+    $("#yarrowUndo").addEventListener("click",()=>{state.yarrowLines.pop();renderYarrow()});
+    $("#yarrowReset").addEventListener("click",()=>{state.yarrowLines=[];renderYarrow()});
     $("#newCastTop").addEventListener("click",()=>{resetCast();$("#question").focus();window.scrollTo({top:0,behavior:"smooth"})});
     $("#historyTop").addEventListener("click",()=>{
       if(!state.current){
@@ -472,7 +532,7 @@
       activateTab("history");
     });
     $$(".tab").forEach(b=>b.addEventListener("click",()=>activateTab(b.dataset.tab)));
-    buildManual();renderProgress();renderHistory();
+    buildManual();renderProgress();renderYarrow();renderHistory();
     $$("#topicChips .chip").forEach(x=>x.setAttribute("aria-pressed",x.classList.contains("active")));
     $$(".method").forEach(x=>x.setAttribute("aria-pressed",x.classList.contains("active")));
   }
@@ -489,46 +549,86 @@
     $("#manualGrid").innerHTML=LINE_NAMES.map((n,i)=>`<label class="mini"><span>${n}</span><select data-manual="${i}" aria-label="${n}"><option value="7">7 · 少阳</option><option value="8">8 · 少阴</option><option value="9">9 · 老阳（动）</option><option value="6">6 · 老阴（动）</option></select></label>`).join("");
   }
   function renderProgress(){
-    $("#progress").innerHTML=Array.from({length:6},(_,i)=>`<i class="step ${i<state.lines.length?"done":""}"></i>`).join("");
+    $("#progress").innerHTML=Array.from({length:6},(_,i)=>`<i class="step ${i<state.lines.length?"done":""} ${i===state.lines.length&&state.pendingCoin?"lit":""}"></i>`).join("");
     const next=state.lines.length+1;
-    $("#tossBtn").textContent=state.lines.length<6?`投掷第 ${next} 爻`:"查看排盘";
-    $("#coinTitle").textContent=state.lines.length<6?`正在起${LINE_NAMES[state.lines.length]} · ${state.lines.length}/6`:"六爻已成";
+    $("#tossBtn").textContent=state.coinBusy?`确定${LINE_NAMES[state.lines.length]}`:state.lines.length<6?`摇第 ${next} 爻`:"查看排盘";
+    $("#coinTitle").textContent=state.coinBusy?`${LINE_NAMES[state.lines.length]}正在摇动 · 点击确定后落定`:state.lines.length<6?`准备摇${LINE_NAMES[state.lines.length]} · 已完成 ${state.lines.length}/6`:"六爻已成";
   }
-  async function toss(){
+  function toss(){
+    if(state.coinBusy){settleCoinLine();return}
     if(state.lines.length===6){showResult(state.lines);return}
-    const coins=$$(".coin");coins.forEach(c=>{c.classList.remove("toss");void c.offsetWidth;c.classList.add("toss")});
-    $("#tossBtn").disabled=true;
-    await new Promise(r=>setTimeout(r,650));
-    const faces=[secureCoin(),secureCoin(),secureCoin()], sum=faces.reduce((a,b)=>a+b,0);
-    coins.forEach((c,i)=>c.querySelector("span").textContent=faces[i]===3?"字":"背");
-    state.lines.push(sum);state.records.push({faces,sum});
-    $("#coinStatus").textContent=`${faces.map(v=>v===3?"字":"背").join(" · ")} → ${sum} · ${lineLabel(sum)}`;
-    renderProgress();$("#tossBtn").disabled=false;
-    if(state.lines.length===6)setTimeout(()=>showResult(state.lines),320);
+    const coins=$$(".coin");
+    // 此时只进入持续摇动状态；随机结果在用户点击“确定”的落定瞬间才生成。
+    state.pendingCoin={startedAt:Date.now()};state.coinBusy=true;
+    coins.forEach(c=>{c.querySelector("span").textContent="摇";c.classList.remove("toss");void c.offsetWidth;c.classList.add("toss")});
+    $("#coinStatus").textContent=`${LINE_NAMES[state.lines.length]}持续摇动中，点击“确定”让铜钱落下`;
+    renderProgress();
+  }
+  function settleCoinLine(){
+    if(!state.pendingCoin)return;
+    const coins=$$(".coin");
+    // 三枚铜钱分别取独立安全随机位：2=字(阴)，3=背(阳)，8 种正反组合等概率。
+    const faces=[secureCoin(),secureCoin(),secureCoin()],sum=faces.reduce((a,b)=>a+b,0);
+    const confirmed={faces,sum,index:state.lines.length+1};
+    coins.forEach((c,i)=>{c.classList.remove("toss");c.querySelector("span").textContent=confirmed.faces[i]===3?"背":"字"});
+    state.lines.push(confirmed.sum);state.records.push(confirmed);state.pendingCoin=null;state.coinBusy=false;
+    $("#coinStatus").innerHTML=`${confirmed.faces.map(v=>v===3?"背":"字").join(" · ")} → <strong>${confirmed.sum} · ${lineLabel(confirmed.sum)}</strong><br>${LINE_NAMES[state.lines.length-1]}已落定，请手动开始下一爻`;
+    renderProgress();
+    if(state.lines.length===6){$("#coinStatus").textContent="上爻已落定，六爻完成，正在生成排盘…";setTimeout(()=>showResult([...state.lines]),500)}
   }
   function undo(){
+    if(state.coinBusy){state.pendingCoin=null;state.coinBusy=false;$$(".coin").forEach(c=>{c.classList.remove("toss");c.querySelector("span").textContent="通宝"});$("#coinStatus").textContent="已取消本次摇动，可以重新开始此爻";renderProgress();return}
     if(!state.lines.length){toast("还没有可撤销的爻");return}
     state.lines.pop();state.records.pop();$("#coinStatus").textContent="已撤销上一爻";renderProgress();
   }
   function resetCast(){
-    state.lines=[];state.records=[];state.current=null;renderProgress();
+    state.coinToken=null;state.lines=[];state.records=[];state.pendingCoin=null;state.coinBusy=false;state.current=null;renderProgress();
     $("#coinStatus").textContent="尚未投掷";$("#emptyState").style.display="grid";$("#resultContent").classList.remove("active");
     $$(".coin span").forEach(x=>x.textContent="通宝");
+    $("#tossBtn").disabled=false;
   }
   function manualBuild(){ showResult($$("[data-manual]").map(x=>Number(x.value))) }
   function numberBuild(){
     const nums=[$("#num1"),$("#num2"),$("#num3")].map(x=>Number(x.value));
     if(nums.some(n=>!Number.isFinite(n)||n===0)){toast("请输入三个非零数字");return}
     const idx=n=>((Math.abs(n)-1)%8);
-    const lower=ORDER[idx(nums[0])],upper=ORDER[idx(nums[1])],moving=(Math.abs(nums[0]+nums[1]+nums[2])-1)%6;
+    const upper=ORDER[idx(nums[0])],lower=ORDER[idx(nums[1])],moving=(Math.abs(nums[2])-1)%6;
     const bits=(lower+upper).split(""); const lines=bits.map(v=>v==="1"?7:8);
     lines[moving]=lines[moving]===7?9:6;state.records=[];
     showResult(lines);
   }
-  function renderHex(id,lines,showMoves){
+  function yearBranchNumber(date){return ((date.getFullYear()-4)%12+12)%12+1}
+  function timeBuild(){
+    const month=Number($("#lunarMonth").value),day=Number($("#lunarDay").value),hour=Number($("#timeBranch").value),date=$("#castTime").value?new Date($("#castTime").value):new Date();
+    if(month<1||month>12||day<1||day>30){toast("请输入有效的农历月和日");return}
+    const total=yearBranchNumber(date)+month+day,upper=ORDER[(total-1)%8],lower=ORDER[(total+hour-1)%8],moving=(total+hour-1)%6;
+    const bits=(lower+upper).split(""),lines=bits.map(v=>v==="1"?7:8);lines[moving]=lines[moving]===7?9:6;state.records=[];showResult(lines);
+  }
+  function yarrowOneLine(){
+    let stalks=49;
+    for(let change=0;change<3;change++){
+      const left=1+secureRandom(stalks-2),right=stalks-left-1;
+      let remLeft=left%4||4,remRight=right%4||4;
+      stalks-=1+remLeft+remRight;
+    }
+    return stalks/4;
+  }
+  function secureRandom(max){const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]%max}
+  function renderYarrow(){
+    $("#yarrowProgress").innerHTML=Array.from({length:6},(_,i)=>`<i class="step ${i<state.yarrowLines.length?"done":""}"></i>`).join("");
+    $("#yarrowBtn").textContent=state.yarrowLines.length<6?`演算第 ${state.yarrowLines.length+1} 爻`:"查看排盘";
+    $("#yarrowStatus").textContent=state.yarrowLines.length?state.yarrowLines.map((v,i)=>`${LINE_NAMES[i]} ${v}·${lineLabel(v)}`).join("｜"):"尚未演算";
+  }
+  function yarrowStep(){
+    if(state.yarrowLines.length===6){showResult(state.yarrowLines);return}
+    state.yarrowLines.push(yarrowOneLine());renderYarrow();
+    if(state.yarrowLines.length===6)setTimeout(()=>showResult([...state.yarrowLines]),250);
+  }
+  function renderHex(id,lines,showMoves,palace){
     $(id).innerHTML=[5,4,3,2,1,0].map(i=>{
       const yang=isYang(lines[i]),moving=showMoves&&isMoving(lines[i]);
-      return `<div class="yao-row"><span class="yao-n">${LINE_NAMES[i]}</span><span class="line ${yang?"yang":"yin"} ${moving?"moving":""}"><i></i><i></i></span><span class="line-mark">${moving?`<strong>${lines[i]===9?"○":"×"}</strong> ${lineLabel(lines[i])}`:lineLabel(lines[i])}</span></div>`
+      const badges=[];if(moving)badges.push(`<b class="yao-badge move">${lines[i]===9?"○ 动":"× 动"}</b>`);if(palace?.shi===i+1)badges.push('<b class="yao-badge shi">世</b>');if(palace?.ying===i+1)badges.push('<b class="yao-badge ying">应</b>');
+      return `<div class="yao-row"><span class="yao-n">${LINE_NAMES[i]}</span><span class="line ${yang?"yang":"yin"} ${moving?"moving":""}"><i></i><i></i></span><span class="line-mark"><span class="yao-badges">${badges.join("")}</span></span></div>`
     }).join("");
   }
   function buildInterpretation(lines,origin,next){
@@ -536,6 +636,8 @@
     const yangCount=lines.filter(isYang).length, topic=TOPICS[state.topic],palace=palaceInfo(lines);
     const relations=najiaFor(lines).map(x=>relation(palace.element,x.slice(-1)));
     const usefulLines=topic.yongshen==="世应"?[palace.shi-1,palace.ying-1]:relations.map((x,i)=>x===topic.yongshen?i:null).filter(v=>v!==null);
+    const sourceRelation=topic.yongshen==="妻财"?"子孙":topic.yongshen==="官鬼"?"妻财":topic.yongshen==="父母"?"官鬼":topic.yongshen==="子孙"?"兄弟":"—";
+    const avoidRelation=topic.yongshen==="妻财"?"兄弟":topic.yongshen==="官鬼"?"子孙":topic.yongshen==="父母"?"妻财":topic.yongshen==="子孙"?"父母":"—";
     let phase,heading;
     if(moving.length===0){phase="当前结构相对稳定，重点不在追逐变化，而在把既有条件看清、做实。";heading="守住主线，先求确定"}
     else if(moving.length<=2){phase=`变化集中在${moving.map(i=>LINE_NAMES[i]).join("、")}，说明关键转折较聚焦，适合围绕少数核心变量行动。`;heading="变化聚焦，可小步验证"}
@@ -551,7 +653,7 @@
         {n:"一",t:`当前基础：${origin.lower.name}卦主${origin.lower.quality}，先核验自己真正可控的资源与条件。`},
         {n:"二",t:`外部环境：${origin.upper.name}卦主${origin.upper.quality}，沟通时要区分事实、判断与期待。`},
         {n:"三",t:moving.length?`变化抓手：重点观察${moving.map(i=>LINE_NAMES[i]).join("、")}所代表的阶段，避免平均用力。`:"稳定抓手：暂无动爻，适合坚持有效做法，并设置复盘节点。"},
-        {n:"四",t:`用神提示：${topic.name}类问题以「${topic.yongshen}」为观察重点，本卦对应${usefulLines.length?usefulLines.map(i=>LINE_NAMES[i]).join("、"):"未显于六爻"}。此项用于定位关注点，不单独判定吉凶。`}
+        {n:"四",t:`用神提示：${topic.name}类问题以「${topic.yongshen}」为观察重点，本卦对应${usefulLines.length?usefulLines.map(i=>LINE_NAMES[i]).join("、"):"未显于六爻"}${sourceRelation!=="—"?`；原神为${sourceRelation}，忌神为${avoidRelation}`:""}。此项用于定位关注点，不单独判定吉凶。`}
       ]
     };
   }
@@ -564,42 +666,29 @@
     const clean=[...lines], changedLines=clean.map(changed), origin=hexInfo(clean), next=hexInfo(changedLines);
     const moving=clean.map((v,i)=>isMoving(v)?i:null).filter(v=>v!==null), date=$("#castTime").value?new Date($("#castTime").value):new Date();
     const question=$("#question").value.trim()||"未填写具体问题";
-    const palace=palaceInfo(clean),calendar=calendarInfo(date),najia=najiaFor(clean),relations=najia.map(x=>relation(palace.element,x.slice(-1)));
-    state.current={lines:clean,changedLines,origin,next,moving,date,question,topic:state.topic,palace,calendar,najia,relations};
+    const palace=palaceInfo(clean),calendar=calendarInfo(date),najia=najiaFor(clean),changedNajia=najiaFor(changedLines),relations=najia.map(x=>relation(palace.element,x.slice(-1))),body=bodyInfo(clean,palace,najia);
+    const topic=TOPICS[state.topic],usefulLines=topic.yongshen==="世应"?[palace.shi-1,palace.ying-1]:relations.map((x,i)=>x===topic.yongshen?i:null).filter(v=>v!==null),period=periodHint(usefulLines,najia,calendar);
+    state.current={lines:clean,changedLines,origin,next,moving,date,question,topic:state.topic,palace,calendar,najia,changedNajia,relations,body,usefulLines,period};
     $("#emptyState").style.display="none";$("#resultContent").classList.add("active");
     $("#resultTitle").textContent=`第 ${origin.number} 卦 · ${origin.name}`;
     $("#resultQuestion").textContent=`${TOPICS[state.topic].name} · ${question}`;
     $("#originName").textContent=`${origin.upper.symbol}${origin.lower.symbol} ${origin.name}卦`;
     $("#changedName").textContent=`${next.upper.symbol}${next.lower.symbol} ${next.name}卦`;
     $("#originNumber").textContent=`第 ${origin.number} 卦`;$("#changedNumber").textContent=`第 ${next.number} 卦`;
-    renderHex("#originHex",clean,true);renderHex("#changedHex",changedLines,false);
-    $("#movingMetric").textContent=moving.length?moving.map(i=>LINE_NAMES[i]).join("、"):"无动爻";
-    $("#trigramMetric").textContent=`世${palace.shi} · 应${palace.ying}`;
-    $("#balanceMetric").textContent=`${calendar.text}日`;
-    $("#timeMetric").textContent=date.toLocaleString("zh-CN",{month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false});
-    $("#calendarNote").textContent=`${palace.palace}宫 · ${palace.element} · ${palace.type}｜内卦${origin.lower.name}、外卦${origin.upper.name}｜旬空：${calendar.voids.join("")}`;
+    renderHex("#originHex",clean,true,palace);renderHex("#changedHex",changedLines,false,null);
+    $("#originMeta").innerHTML=`<span class="hot">动爻 ${moving.length?moving.map(i=>LINE_NAMES[i]).join("、"):"无"}</span><span>世 ${LINE_NAMES[palace.shi-1]}</span><span>应 ${LINE_NAMES[palace.ying-1]}</span><span>${calendar.text}日</span>`;
+    $("#changedMeta").innerHTML=`<span class="hot">之卦 ${next.name}</span><span>由${moving.length?moving.map(i=>LINE_NAMES[i]).join("、"):"静卦"}而变</span>`;
+    $("#calendarNote").textContent=`${palace.palace}宫 · ${palace.element} · ${palace.type}｜内卦${origin.lower.name}、外卦${origin.upper.name}｜月建：${calendar.month}（节气近似）｜旬空：${calendar.voids.join("")}｜世身：${LINE_NAMES[body.shiBody-1]}｜月卦身：${body.monthBody?LINE_NAMES[body.monthBody-1]:"不入卦"}`;
     const ix=buildInterpretation(clean,origin,next);
     $("#overviewHeading").textContent=ix.heading;$("#overviewText").textContent=ix.text;$("#actionText").textContent=ix.action;$("#riskText").textContent=ix.risk;
     $("#focusList").innerHTML=ix.focuses.map(x=>`<div class="focus"><b>${x.n}</b><div>${escapeHTML(x.t)}</div></div>`).join("");
     $("#detailBody").innerHTML=[5,4,3,2,1,0].map(i=>{
       const tag=palace.shi===i+1?"世":palace.ying===i+1?"应":"—";
-      return `<tr><td>${LINE_NAMES[i]}</td><td>${calendar.gods[i]}</td><td>${relations[i]}</td><td>${najia[i]}</td><td>${clean[i]} · ${isYang(clean[i])?"阳":"阴"}</td><td>${isMoving(clean[i])?`<strong style="color:var(--red)">动</strong>`:"静"}</td><td>${changedLines[i]} · ${isYang(changedLines[i])?"阳":"阴"}</td><td><strong style="color:${tag==="—"?"inherit":"var(--jade)"}">${tag}</strong></td><td style="text-align:left">${structureHint(i,isMoving(clean[i]))}</td></tr>`
+      const branch=najia[i].slice(-2,-1),element=najia[i].slice(-1),changedBranch=changedNajia[i].slice(-2,-1),strength=strengthFor(branch,element,isMoving(clean[i]),changedBranch,calendar);
+      return `<tr><td>${LINE_NAMES[i]}</td><td>${calendar.gods[i]}</td><td>${relations[i]}</td><td>${najia[i]}</td><td>${clean[i]} · ${isYang(clean[i])?"阳":"阴"}</td><td>${isMoving(clean[i])?`<strong style="color:var(--red)">动</strong>`:"静"}</td><td>${changedLines[i]} · ${isYang(changedLines[i])?"阳":"阴"}</td><td><strong style="color:${tag==="—"?"inherit":"var(--jade)"}">${tag}</strong></td><td style="text-align:left">${strength}</td><td style="text-align:left">${structureHint(i,isMoving(clean[i]))}</td></tr>`
     }).join("");
-    renderProcess();activateTab("overview");
+    activateTab("overview");
     if(save){saveHistory();setTimeout(()=>$("#result").scrollIntoView({behavior:"smooth",block:"start"}),80)}
-  }
-  function renderProcess(){
-    const c=state.current;if(!c)return;
-    const source=state.records.length===6?"三枚铜钱逐爻投掷":state.method==="number"?"三数定上下卦与动爻":"手动录入六爻";
-    const steps=[
-      ["记录起卦信息",`${source}；问事类别为${TOPICS[c.topic].name}，时间为${c.date.toLocaleString("zh-CN")}。`],
-      ["组成上下卦",`初、二、三爻组成内卦${c.origin.lower.name}（${c.origin.lower.nature}），四、五、上爻组成外卦${c.origin.upper.name}（${c.origin.upper.nature}）。`],
-      ["定位本卦",`按上下卦组合查得第 ${c.origin.number} 卦「${c.origin.name}」。六爻由下向上读取。`],
-      ["装卦信息",`本卦归${c.palace.palace}宫${c.palace.type}，五行为${c.palace.element}；世爻在${LINE_NAMES[c.palace.shi-1]}，应爻在${LINE_NAMES[c.palace.ying-1]}。以${c.calendar.text}日排六神，旬空为${c.calendar.voids.join("")}。`],
-      ["动爻变换",c.moving.length?`${c.moving.map(i=>`${LINE_NAMES[i]}${c.lines[i]===6?"老阴变阳":"老阳变阴"}`).join("；")}。`:"本次无动爻，本卦结构不发生阴阳转换。"],
-      ["得到变卦",`变换后为第 ${c.next.number} 卦「${c.next.name}」，用于观察结构可能的发展方向。`]
-    ];
-    $("#processList").innerHTML=steps.map((x,i)=>`<div class="process-item"><b>${i+1}</b><div><h4>${x[0]}</h4><p>${x[1]}</p></div></div>`).join("");
   }
   function activateTab(name){
     $$(".tab").forEach(x=>x.classList.toggle("active",x.dataset.tab===name));
@@ -632,16 +721,6 @@
   }
   function deleteHistory(id){
     localStorage.setItem("guanyao_history",JSON.stringify(history().filter(x=>x.id!==id)));renderHistory();toast("已删除");
-  }
-  async function copySummary(){
-    const c=state.current;if(!c)return;
-    const text=[`观爻 · 六爻排盘`,`问题：${c.question}`,`本卦：第 ${c.origin.number} 卦 ${c.origin.name}（${c.palace.palace}宫${c.palace.type}）`,`变卦：第 ${c.next.number} 卦 ${c.next.name}`,`日辰：${c.calendar.text}日，旬空${c.calendar.voids.join("")}`,`世应：世在${LINE_NAMES[c.palace.shi-1]}，应在${LINE_NAMES[c.palace.ying-1]}`,`动爻：${c.moving.length?c.moving.map(i=>LINE_NAMES[i]).join("、"):"无"}`,`解读：${$("#overviewText").textContent}`,`建议：${$("#actionText").textContent}`].join("\n");
-    try{
-      await navigator.clipboard.writeText(text);toast("摘要已复制");
-    }catch{
-      const area=document.createElement("textarea");area.value=text;area.style.position="fixed";area.style.opacity="0";document.body.appendChild(area);area.select();
-      const ok=document.execCommand("copy");area.remove();toast(ok?"摘要已复制":"复制受限，请使用打印功能");
-    }
   }
   init();
 })();
